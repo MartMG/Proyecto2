@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Menú Lateral</title>
+  <link rel="stylesheet" type="text/css" href="css/estilos.css">
+</head>
+<body>
+    <i class="fas fa-bars icono-menu" onclick="toggleMenu()"></i>
+<div id="menu">
+    <a href="#" onclick="mostrarSaludo()">Inicio</a>
+    <a href="#" onclick="mostrarFormulario()">Formulario</a>
+  </div>
+
+  <div id="contenido">
+    <button onclick="mostrarMensaje()" id="saludo" style="display: none;">Saludar</button>
+</div>
+
+<div id="formulario">
+    <form action="" name="formulario" method="get">
+      <input type="text" name="nombre" id="nombre" maxlength="30" placeholder="Nombre">
+      <br>
+
+      <input type="text" name="contraseña" id="contraseña"  placeholder="Apellido">
+      <br>
+
+      <input type="text" name="correo" id="correo"  placeholder="Correo">
+      <br>
+
+      <input type="submit" id="button" name="button" value="Guardar">
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
+
+<script>
+    var registros = [];
+
+  function toggleMenu() {
+    var menu = document.getElementById("menu");
+    menu.classList.toggle("closed");
+  }
+
+    (function (){
+        var formulario = document.getElementsByName('formulario')[0],
+        elementos = formulario.elements,
+        boton = document.getElementById('btn');
+
+        var validarNombre = function (e) {
+  e.preventDefault(); // Evita que el formulario se envíe
+
+  var nombre = formulario.nombre.value;
+  var contraseña = formulario.contraseña.value;
+  var correo = formulario.correo.value;
+
+  if (nombre === "" || contraseña === "" || correo === "") {
+    alert("Completa todos los campos");
+  } else {
+    var nuevoRegistro = {
+      nombre: nombre,
+      contraseña: contraseña,
+      correo: correo,
+    };
+
+    registros.push(nuevoRegistro);
+
+    mostrarRegistros();
+    formulario.reset(); // Reinicia el formulario
+  
+};
+
+
+    };
+
+        var validar = function(e){
+            validarNombre(e);
+            e.preventDefault();
+        };
+
+            formulario.addEventListener("submit", validar);
+
+    }())
+
+    function mostrarSaludo() {
+  var saludo = document.getElementById("saludo");
+  var formulario = document.getElementById("formulario");
+
+  saludo.style.display = "block";
+  formulario.style.display = "none";
+}
+
+function mostrarFormulario() {
+  var saludo = document.getElementById("saludo");
+  var formulario = document.getElementById("formulario");
+  
+
+  saludo.style.display = "none";
+  formulario.style.display = "block";
+  
+}
+
+
+function mostrarRegistros() {
+  var contenido = document.getElementById("contenido");
+  contenido.innerHTML = ""; // Borra el contenido anterior
+
+  for (var i = 0; i < registros.length; i++) {
+    var registro = registros[i];
+
+    var divRegistro = document.createElement("div");
+    divRegistro.classList.add("registro");
+
+    var nombreSpan = document.createElement("span");
+    nombreSpan.innerHTML = "<strong>Nombre:</strong> " + " " + registro.nombre;
+
+    var contraseñaSpan = document.createElement("span");
+    contraseñaSpan.innerHTML = "<strong>Apellido:</strong> " + " " + registro.contraseña;
+
+    var correoSpan = document.createElement("span");
+    correoSpan.innerHTML = "<strong>Correo:</strong> " + " " + registro.correo;
+
+    var botonEliminar = document.createElement("button");
+    botonEliminar.innerHTML = "X";
+    botonEliminar.classList.add("boton-eliminar");
+    botonEliminar.dataset.indice = i; // Almacena el índice del registro en el atributo 'data-indice'
+    botonEliminar.addEventListener("click", eliminarRegistro);
+
+    divRegistro.appendChild(nombreSpan);
+    divRegistro.appendChild(contraseñaSpan);
+    divRegistro.appendChild(correoSpan);
+    divRegistro.appendChild(botonEliminar);
+
+    contenido.appendChild(divRegistro);
+  }
+}
+function eliminarRegistro() {
+  var indice = this.dataset.indice;
+  registros.splice(indice, 1); // Elimina el registro del array
+
+  mostrarRegistros(); // Actualiza la cuadrícula
+}
+function mostrarMensaje() {
+  var saludo = document.getElementById("saludo");
+  alert("Hola! Cómo estás?")
+  saludo.style.display = "none";
+}
+
+  </script>
+  </body>
+</html>
+

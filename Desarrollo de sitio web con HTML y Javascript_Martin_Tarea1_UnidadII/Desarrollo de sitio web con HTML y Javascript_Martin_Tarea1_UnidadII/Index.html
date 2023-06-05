@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Menú Lateral</title>
+  <link rel="stylesheet" type="text/css" href="css/Estilo.css">
+</head>
+<body>
+    <i class="fas fa-bars icono-menu" onclick="toggleMenu()"></i>
+<div id="menu">
+    <a href="#" onclick="mostrarSaludo()">Inicio</a>
+    <a href="#" onclick="mostrarFormulario()">Formulario</a>
+  </div>
+
+  <div id="contenido">
+    <button onclick="mostrarMensaje()" id="saludo" style="display: none;">Saludar</button>
+</div>
+
+<div id="formulario">
+    <form action="" name="formulario" method="get">
+      <input type="text" name="nombre" id="nombre" maxlength="30" placeholder="Nombre">
+      <br>
+
+      <input type="text" name="contraseña" id="contraseña"  placeholder="Contraseña">
+      <br>
+
+      <input type="text" name="correo" id="correo"  placeholder="Correo">
+      <br>
+
+      <input type="submit" id="button" name="button" value="Guardar">
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
+<script>
+    
+  function toggleMenu() {
+    var menu = document.getElementById("menu");
+    menu.classList.toggle("closed");
+  }
+
+    (function (){
+        var formulario = document.getElementsByName('formulario')[0],
+        elementos = formulario.elements,
+        boton = document.getElementById('btn');
+
+        var validarNombre = function(e){
+            if (formulario.nombre.value == 0 || formulario.contraseña.value == 0 || formulario.correo.value == 0){
+                alert("Completa todos los campos");
+            } 
+
+    };
+     
+
+        var validar = function(e){
+            validarNombre(e);
+        };
+
+            formulario.addEventListener("submit", validar);
+    }())
+
+    function mostrarSaludo() {
+  var saludo = document.getElementById("saludo");
+  var formulario = document.getElementById("formulario");
+
+  saludo.style.display = "block";
+  formulario.style.display = "none";
+}
+
+function mostrarFormulario() {
+  var saludo = document.getElementById("saludo");
+  var formulario = document.getElementById("formulario");
+  
+
+  saludo.style.display = "none";
+  formulario.style.display = "block";
+  
+}
+
+function mostrarMensaje() {
+  var saludo = document.getElementById("saludo");
+  alert("Hola! Cómo estás?")
+  saludo.style.display = "none";
+}
+
+  </script>
+  </body>
+</html>
